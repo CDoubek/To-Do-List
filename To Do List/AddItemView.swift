@@ -24,7 +24,17 @@ struct AddItemView: View {
                         priority in Text(priority)
                     }
                 }
+                TextField("Description", text: $description)
+                DatePicker("Due Date", selection: $dueDate, displayedComponents: .date)
             }
+            .navigationBarTitle("Add New To-Do Item")
+            .navigationBarItems(trailing: Button("Save") {
+                if priority.count > 0 && description.count > 0 {
+                    let item = ToDoItem(id: UUID(), priority: priority)
+                    toDoList.items.append(item)
+                    presentationMode.wrappedValue.dismiss()
+                }
+            })
         }
     }
 }
